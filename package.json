@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "concurrently --kill-others \"npm run client\" \"node src/index.js\"",
     "client": "cd client && npm run start",
     "dev-server": "env-cmd -f ./config/dev.env nodemon src/index.js",
     "dev": "concurrently --kill-others \"npm run client\" \"npm run dev-server\"",
