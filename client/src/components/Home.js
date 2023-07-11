@@ -125,6 +125,7 @@ export default function Home() {
         if (findCurrentNote() && updNote) {
             updateData()
         }
+        // eslint-disable-next-line
     }, [updNote])
 
     function deleteNote(event, noteId) {
@@ -151,6 +152,7 @@ export default function Home() {
         if (findCurrentNote()) {
             updateData()
         }
+        // eslint-disable-next-line
     }, [delNote])
 
     function findCurrentNote() {

@@ -11,7 +11,7 @@ export default function Login() {
     const [errorText, setErrorText] = React.useState("")
 
     useEffect(() => {
-        const fetchUser = async () => {
+        const FetchUser = async () => {
             const user = await fetch("/users/me", {
                 "method": "GET",
                 "headers": {
@@ -19,11 +19,12 @@ export default function Login() {
                     "Authorization": localStorage.getItem("token")
                 }
             }).then(response => response.json())
+            const navigate = useNavigate()
             if (!user.error) {
                 navigate("/home", { replace: true })
             }
         }
-        fetchUser()
+        FetchUser()
     }, [])
 
     function handleChange(event) {

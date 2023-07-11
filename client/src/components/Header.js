@@ -16,7 +16,7 @@ export default function Header(props) {
             <ul className="nav-options">
                 <li className="nav-item">About</li>
                 <li className="nav-item">Profile</li>
-                {props.userDetails.avatar && <img className="profile--image" src={source} />}
+                {props.userDetails.avatar && <img className="profile--image" src={source} alt="Profile" />}
             </ul>
         </header>
     )
