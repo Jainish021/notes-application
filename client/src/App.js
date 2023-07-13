@@ -7,11 +7,7 @@ import axios from "axios"
 export default function App() {
   const loc = window.location
   axios.defaults.baseURL = `${loc.protocol}//${loc.hostname}${loc.hostname === "localhost" ? ":3001" : ":"}`
-  // axios.defaults.proxy = {
-  //   protocol: 'https',
-  //   hostname: 'localhost',
-  //   port: 3001
-  // }
+
   return (
     <BrowserRouter>
       <Routes>
