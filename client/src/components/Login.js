@@ -1,8 +1,10 @@
 import React, { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import "../css/style.css"
+import axios from "axios"
 
 export default function Login() {
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem("token")
     const navigate = useNavigate()
     const [credentials, setCredentials] = React.useState({
         email: "",
@@ -11,21 +13,20 @@ export default function Login() {
     const [errorText, setErrorText] = React.useState("")
 
     useEffect(() => {
-        const FetchUser = async () => {
-            const user = await fetch("/users/me", {
-                "method": "GET",
-                "headers": {
-                    "Content-Type": "application/json",
-                    "Authorization": localStorage.getItem("token")
-                }
-            }).then(response => response.json())
-            const navigate = useNavigate()
-            if (!user.error) {
-                navigate("/home", { replace: true })
+        function RedirectToHome() {
+            navigate("/home", { replace: true })
+        }
+
+        const fetchUser = async () => {
+            try {
+                await axios.get("/users/me")
+                RedirectToHome()
+            } catch (e) {
+
             }
         }
-        FetchUser()
-    }, [])
+        localStorage.getItem('token') && fetchUser()
+    }, [navigate])
 
     function handleChange(event) {
         const { name, value } = event.target
@@ -38,20 +39,13 @@ export default function Login() {
     async function LoginRequest(event) {
         event.preventDefault()
         try {
-            const userDetails = await fetch("/users/login", {
-                "method": "POST",
-                "headers": {
-                    "Content-Type": "application/json",
-                },
-                "body": JSON.stringify(credentials)
-            }).then(response => response.json())
+            const userDetails = await axios.post("/users/login", credentials).then(res => res.data)
             localStorage.setItem("token", userDetails.token)
             setErrorText("")
             navigate("/home", { replace: true })
         } catch (e) {
             setErrorText("Unable to login. Enter correct Email/Password.")
         }
-
     }
 
     function UserRegistration() {

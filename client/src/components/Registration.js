@@ -1,6 +1,7 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
 import "../css/style.css"
+import axios from "axios"
 
 export default function Registration() {
     const navigate = useNavigate()
@@ -24,15 +25,9 @@ export default function Registration() {
         event.preventDefault()
 
         try {
-            const userDetails = await fetch("/users", {
-                "method": "POST",
-                "headers": {
-                    "Content-Type": "application/json",
-                },
-                "body": JSON.stringify(credentials)
-            }).then(response => response.json())
+            const userDetails = await axios.post("/users", credentials).then(res => res.data)
             localStorage.setItem("token", userDetails.token)
-            console.log(userDetails)
+            // console.log(userDetails)
             if (userDetails.error) {
                 throw new Error()
             }
