@@ -14,7 +14,7 @@ export default function Login() {
 
     useEffect(() => {
         function RedirectToHome() {
-            navigate("/home", { replace: true })
+            navigate("/home", { replace: false })
         }
 
         const fetchUser = async () => {
@@ -42,14 +42,14 @@ export default function Login() {
             const userDetails = await axios.post("/users/login", credentials).then(res => res.data)
             localStorage.setItem("token", userDetails.token)
             setErrorText("")
-            navigate("/home", { replace: true })
+            navigate("/home", { replace: false })
         } catch (e) {
             setErrorText("Unable to login. Enter correct Email/Password.")
         }
     }
 
     function UserRegistration() {
-        navigate("/registration", { replace: true })
+        navigate("/registration", { replace: false })
     }
 
     return (

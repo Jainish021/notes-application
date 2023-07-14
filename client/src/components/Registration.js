@@ -32,7 +32,7 @@ export default function Registration() {
                 throw new Error()
             }
             setErrorText("")
-            navigate("/home", { replace: true })
+            navigate("/home", { replace: false })
         } catch (e) {
             setErrorText("User already exists! Try logging in.")
         }
@@ -40,7 +40,7 @@ export default function Registration() {
     }
 
     function UserLogin() {
-        navigate("/login", { replace: true })
+        navigate("/login", { replace: false })
     }
 
     return (

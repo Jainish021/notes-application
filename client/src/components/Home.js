@@ -12,29 +12,18 @@ export default function Home() {
     const token = localStorage.getItem('token')
     axios.defaults.headers.common['Authorization'] = token
     const navigate = useNavigate()
-    const [userDetails, setUserDetails] = useState("")
     const [notes, setNotes] = useState([])
     const [currentNoteId, setCurrentNoteId] = useState("")
 
     useEffect(() => {
         function RedirectToLogin() {
-            navigate("/login", { replace: true })
+            navigate("/login", { replace: false })
             return
         }
 
-        if (!localStorage.getItem('token')) {
+        if (!token) {
             RedirectToLogin()
         }
-
-        const fetchUserDetails = async () => {
-            try {
-                const userData = await axios.get("/users/me").then(res => res.data)
-                setUserDetails(userData)
-            } catch (e) {
-                RedirectToLogin()
-            }
-        }
-        localStorage.getItem('token') && fetchUserDetails()
 
         const fetchData = async () => {
             try {
@@ -45,7 +34,7 @@ export default function Home() {
                 RedirectToLogin()
             }
         }
-        localStorage.getItem('token') && fetchData()
+        token && fetchData()
     }, [navigate])
 
     async function createNewNote() {
@@ -107,7 +96,7 @@ export default function Home() {
 
     return (
         <>
-            <Header userDetails={userDetails} />
+            <Header />
             <main>
                 {
                     notes.length > 0
