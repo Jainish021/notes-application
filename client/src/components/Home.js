@@ -35,6 +35,7 @@ export default function Home() {
             }
         }
         token && fetchData()
+        // eslint-disable-next-line
     }, [navigate])
 
     async function createNewNote() {

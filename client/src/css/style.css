@@ -418,3 +418,28 @@ div.mde-tabs>button,
 .mde-header .svg-icon {
     color: #e6d7b4;
 }
+
+.about {
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
+    width: 70%;
+    font-size: 17px;
+    background-color: #e6d7b4;
+    box-shadow: 0 0 0 2px #e6d7b4,
+        0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+    border-radius: 3%;
+}
+
+.developer--portrait {
+    width: 200px;
+    box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.3);
+}
+
+.handle--icon {
+    margin: 20px;
+    background-color: #FFFFFF;
+    box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.3);
+    width: 30px;
+}

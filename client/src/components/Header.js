@@ -6,7 +6,8 @@ export default function Header() {
     const navigate = useNavigate()
     const [userDetails, setUserDetails] = useState("")
     const source = `data:image/jpeg;base64, ${userDetails.avatar}`
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
+    const token = localStorage.getItem('token')
+    axios.defaults.headers.common['Authorization'] = token
 
     useEffect(() => {
         const fetchUserDetails = async () => {
@@ -17,8 +18,9 @@ export default function Header() {
                 RedirectToLogin()
             }
         }
-        localStorage.getItem('token') && fetchUserDetails()
-    }, [RedirectToLogin])
+        token && fetchUserDetails()
+        // eslint-disable-next-line
+    }, [])
 
     // eslint-disable-next-line
     function RedirectToLogin() {

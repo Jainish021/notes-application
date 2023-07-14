@@ -7,8 +7,8 @@ import Profile from "./components/Profile"
 import axios from "axios"
 
 export default function App() {
-  const loc = window.location
-  axios.defaults.baseURL = `${loc.protocol}//${loc.hostname}${loc.hostname === "localhost" ? ":3001" : ":"}`
+  // const loc = window.location
+  // axios.defaults.baseURL = `${loc.protocol}//${loc.hostname}${loc.hostname === "localhost" ? ":3001" : ":"}`
 
   return (
     <BrowserRouter>
