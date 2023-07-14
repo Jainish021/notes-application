@@ -1,5 +1,6 @@
 const express = require("express")
-const cors = require("cors");
+const cors = require("cors")
+const path = require('path')
 const mongoose = require("./db/mongoose")
 const userRouter = require("./routers/user")
 const taskRouter = require("./routers/task")
@@ -7,15 +8,16 @@ const taskRouter = require("./routers/task")
 const app = express()
 const port = process.env.PORT
 
-app.use(cors())
+if (process.env.NODE_ENV !== "production") {
+    app.use(cors())
+}
 app.use(express.json())
 app.use(userRouter)
 app.use(taskRouter)
-
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static("../client/build"))
+    app.use(express.static(path.resolve(__dirname, "../client/build")))
     app.get('*', (req, res) => {
-        res.sendFile("../client/build/index.html")
+        res.sendFile(path.resolve(__dirname, "../client/build/index.html"))
     })
 }
 
