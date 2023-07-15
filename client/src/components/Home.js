@@ -14,6 +14,7 @@ export default function Home() {
     const navigate = useNavigate()
     const [notes, setNotes] = useState([])
     const [currentNoteId, setCurrentNoteId] = useState("")
+    const [tempNoteText, setTempNoteText] = useState("")
 
     useEffect(() => {
         function RedirectToLogin() {
@@ -27,7 +28,7 @@ export default function Home() {
 
         const fetchData = async () => {
             try {
-                const tasksData = await axios.get("/tasks?sortBy=createdAt:desc").then(res => res.data)
+                const tasksData = await axios.get("/tasks?sortBy=updatedAt:desc").then(res => res.data)
                 setNotes(tasksData)
                 setCurrentNoteId(tasksData[0]?._id)
             } catch (e) {
@@ -37,6 +38,23 @@ export default function Home() {
         token && fetchData()
         // eslint-disable-next-line
     }, [navigate])
+
+    useEffect(() => {
+        if (currentNoteId) {
+            setTempNoteText(findCurrentNote().description)
+        }
+        // eslint-disable-next-line
+    }, [currentNoteId])
+
+    useEffect(() => {
+        if (currentNoteId) {
+            const timeoutId = setTimeout(() => {
+                updateNote(tempNoteText)
+            }, 500)
+            return () => clearTimeout(timeoutId)
+        }
+        // eslint-disable-next-line
+    }, [tempNoteText])
 
     async function createNewNote() {
         const newNote = {
@@ -114,8 +132,10 @@ export default function Home() {
                                 deleteNote={deleteNote}
                             />
                             <Editor
-                                currentNote={findCurrentNote()}
-                                updateNote={updateNote}
+                                // currentNote={findCurrentNote()}
+                                tempNoteText={tempNoteText}
+                                // updateNote={updateNote}
+                                setTempNoteText={setTempNoteText}
                             />
                         </Split>
                         :

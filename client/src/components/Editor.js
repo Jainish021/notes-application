@@ -4,7 +4,7 @@ import Showdown from "showdown"
 import "react-mde/lib/styles/css/react-mde-all.css";
 
 
-export default function Editor({ currentNote, updateNote }) {
+export default function Editor({ tempNoteText, setTempNoteText }) {
     const [selectedTab, setSelectedTab] = useState("write")
 
     const converter = new Showdown.Converter({
@@ -17,8 +17,8 @@ export default function Editor({ currentNote, updateNote }) {
     return (
         <section className="pane editor">
             <ReactMde
-                value={currentNote.description}
-                onChange={updateNote}
+                value={tempNoteText}
+                onChange={setTempNoteText}
                 selectedTab={selectedTab}
                 onTabChange={setSelectedTab}
                 generateMarkdownPreview={(markdown) =>
