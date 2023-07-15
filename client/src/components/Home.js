@@ -15,6 +15,9 @@ export default function Home() {
     const [notes, setNotes] = useState([])
     const [currentNoteId, setCurrentNoteId] = useState("")
     const [tempNoteText, setTempNoteText] = useState("")
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalNotes, setTotalNotes] = useState(0)
+    const notesPerPage = 12
 
     useEffect(() => {
         function RedirectToLogin() {
@@ -28,16 +31,17 @@ export default function Home() {
 
         const fetchData = async () => {
             try {
-                const tasksData = await axios.get("/tasks?sortBy=updatedAt:desc").then(res => res.data)
-                setNotes(tasksData)
-                setCurrentNoteId(tasksData[0]?._id)
+                const tasksData = await axios.get(`/tasks?sortBy=updatedAt:desc&limit=${notesPerPage}&skip=${(currentPage - 1) * notesPerPage}`).then(res => res.data)
+                setNotes(tasksData.tasks)
+                setCurrentNoteId(tasksData.tasks[0]?._id)
+                setTotalNotes(tasksData.totalTasks)
             } catch (e) {
                 RedirectToLogin()
             }
         }
         token && fetchData()
         // eslint-disable-next-line
-    }, [navigate])
+    }, [navigate, currentPage])
 
     useEffect(() => {
         if (currentNoteId) {
@@ -65,6 +69,7 @@ export default function Home() {
             const resData = await axios.post("/tasks", newNote).then(res => res.data)
             setCurrentNoteId(resData._id)
             setNotes(prevNotes => [resData, ...prevNotes])
+            setTotalNotes(prevTotal => prevTotal + 1)
         } catch (e) {
             console.log("error")
         }
@@ -99,6 +104,7 @@ export default function Home() {
         setNotes(oldNotes => oldNotes.filter(note => note._id !== noteId))
         try {
             await axios.delete(`/tasks/${noteId}`)
+            setTotalNotes(prevTotal => prevTotal - 1)
             // console.log("Deletion successful!")
         } catch (e) {
             // console.log("Deletion failed!")
@@ -130,11 +136,13 @@ export default function Home() {
                                 setCurrentNoteId={setCurrentNoteId}
                                 newNote={createNewNote}
                                 deleteNote={deleteNote}
+                                currentPage={currentPage}
+                                setCurrentPage={setCurrentPage}
+                                totalNotes={totalNotes}
+                                notesPerPage={notesPerPage}
                             />
                             <Editor
-                                // currentNote={findCurrentNote()}
                                 tempNoteText={tempNoteText}
-                                // updateNote={updateNote}
                                 setTempNoteText={setTempNoteText}
                             />
                         </Split>

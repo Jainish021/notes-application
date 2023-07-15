@@ -354,6 +354,23 @@ button:focus {
     cursor: col-resize;
 }
 
+.pagination {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-inline: 70px;
+}
+
+.pagination--button {
+    color: rgb(88, 81, 38);
+    background-color: #e6d7b4;
+}
+
+.pagination--input {
+    width: 40px;
+}
+
 .split {
     display: flex;
 }

@@ -31,7 +31,7 @@ router.get("/tasks", auth, async (req, res) => {
     }
 
     try {
-        await req.user.populate({
+        await req.user.populate([{
             path: 'tasks',
             match,
             options: {
@@ -39,8 +39,11 @@ router.get("/tasks", auth, async (req, res) => {
                 skip: parseInt(req.query.skip),
                 sort
             }
-        })
-        res.status(201).send(req.user.tasks)
+        }, {
+            path: 'totalTasks',
+            match
+        }])
+        res.status(201).send({ tasks: req.user.tasks, totalTasks: req.user.totalTasks })
     } catch (e) {
         res.status(500).send({ error: "Unable to fetch the tasks!" })
     }
