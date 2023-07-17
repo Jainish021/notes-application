@@ -17,7 +17,10 @@ export default function Home() {
     const [tempNoteText, setTempNoteText] = useState("")
     const [currentPage, setCurrentPage] = useState(1)
     const [totalNotes, setTotalNotes] = useState(0)
-    const notesPerPage = 12
+    const [sortBy, setSortBy] = useState("desc")
+    const [searchText, setSearchText] = useState("")
+    const [notesStatus, setNotesStatus] = useState(false)
+    const notesPerPage = 13
 
     useEffect(() => {
         function RedirectToLogin() {
@@ -31,17 +34,20 @@ export default function Home() {
 
         const fetchData = async () => {
             try {
-                const tasksData = await axios.get(`/tasks?sortBy=updatedAt:desc&limit=${notesPerPage}&skip=${(currentPage - 1) * notesPerPage}`).then(res => res.data)
+                const tasksData = await axios.get(`/tasks?sortBy=updatedAt:${sortBy}&limit=${notesPerPage}&skip=${(currentPage - 1) * notesPerPage}&search=${searchText}`).then(res => res.data)
                 setNotes(tasksData.tasks)
                 setCurrentNoteId(tasksData.tasks[0]?._id)
                 setTotalNotes(tasksData.totalTasks)
+                if (tasksData.totalTasks > 0) {
+                    setNotesStatus(true)
+                }
             } catch (e) {
                 RedirectToLogin()
             }
         }
         token && fetchData()
         // eslint-disable-next-line
-    }, [navigate, currentPage])
+    }, [navigate, currentPage, sortBy, searchText])
 
     useEffect(() => {
         if (currentNoteId) {
@@ -124,7 +130,7 @@ export default function Home() {
             <Header />
             <main>
                 {
-                    notes.length > 0
+                    notesStatus
                         ?
                         <Split
                             sizes={[20, 80]}
@@ -140,6 +146,8 @@ export default function Home() {
                                 setCurrentPage={setCurrentPage}
                                 totalNotes={totalNotes}
                                 notesPerPage={notesPerPage}
+                                setSortBy={setSortBy}
+                                setSearchText={setSearchText}
                             />
                             <Editor
                                 tempNoteText={tempNoteText}

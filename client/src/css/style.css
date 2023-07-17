@@ -166,7 +166,6 @@ hr {
     padding: 10px;
     margin: 0;
     display: block;
-    text-decoration: none;
     cursor: pointer;
 }
 
@@ -208,6 +207,7 @@ button:focus {
 }
 
 .sidebar--header {
+    height: 60px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -217,6 +217,68 @@ button:focus {
 
 .sidebar--header>h3 {
     font-size: 1.75rem;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    width: 200px;
+    border: 1px solid #e6d7b4;
+    border-radius: 5px;
+}
+
+.search-box input[type="text"] {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 5px;
+    font-family: 'Lato', sans-serif;
+}
+
+.filter--button {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    display: inline-block;
+    background-color: #e6d7b4;
+    border: none;
+    border-radius: 20%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter--button>img {
+    width: 15px;
+    justify-items: center;
+    margin-top: 10px;
+}
+
+.filter--options {
+    cursor: auto;
+    display: none;
+    margin-top: 10px;
+    width: 150px;
+    position: absolute;
+    color: rgb(88, 81, 38);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    left: -50%;
+    font-size: 15px;
+    text-align: left;
+}
+
+.filter--options>fieldset {
+    margin-left: 10px;
+}
+
+.filter--options>fieldset>input,
+label {
+    cursor: pointer;
+}
+
+.filter--button:hover .filter--options {
+    background-color: rgb(247, 246, 228);
+    display: block;
 }
 
 .new-note {
@@ -369,6 +431,7 @@ button:focus {
 
 .pagination--input {
     width: 40px;
+    font-family: 'Lato', sans-serif;
 }
 
 .split {

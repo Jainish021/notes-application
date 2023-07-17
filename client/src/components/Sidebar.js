@@ -23,13 +23,8 @@ export default function Sidebar(props) {
         </div>
     ))
 
-    return (
-        <section className="pane sidebar">
-            <div className="sidebar--header">
-                <h3>All Notes</h3>
-                <button className="new-note" onClick={props.newNote}>+</button>
-            </div>
-            {noteElements.slice(0, props.notesPerPage)}
+    function Pagination() {
+        return (
             <div className="pagination">
                 <button className="pagination--button" onClick={() => (props.setCurrentPage(prevPage => prevPage - 1))} disabled={pageNum === 1} >
                     {"<"}
@@ -41,6 +36,34 @@ export default function Sidebar(props) {
                     {">"}
                 </button>
             </div>
+        )
+    }
+    return (
+        <section className="pane sidebar">
+            <div className="sidebar--header">
+                {/* <h3>All Notes</h3> */}
+                <div className="search-box">
+                    <input type="text" placeholder="Type and hit enter..." onKeyUp={(event) => event.key === "Enter" ? props.setSearchText(event.target.value) : ""} />
+                    {/* <button>Search</button> */}
+                </div>
+                <div className="filter--button">
+                    <img src="filter-button.png" alt="filter" />
+                    <div className="filter--options">
+                        <fieldset>
+                            <div id="line"></div>
+                            <legend>Sort:</legend>
+                            <input type="radio" name="Sort" id="asc" onClick={() => props.setSortBy("asc")} />
+                            <label htmlFor="asc"> Oldest First</label>
+                            <br />
+                            <input type="radio" name="Sort" id="desc" onClick={() => props.setSortBy("desc")} defaultChecked />
+                            <label htmlFor="desc"> Newest First</label>
+                        </fieldset>
+                    </div>
+                </div>
+                <button className="new-note" onClick={props.newNote}>+</button>
+            </div>
+            {noteElements.slice(0, props.notesPerPage)}
+            {maxPages > 1 && <Pagination />}
         </section>
     )
 }

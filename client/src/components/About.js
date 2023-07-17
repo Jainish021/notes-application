@@ -23,7 +23,7 @@ export default function About() {
                 </p>
                 <p>
                     To improve usability, the application incorporates result sorting, pagination, and filtering capabilities. Result sorting allows users to arrange
-                    their notes based on specific criteria, such as date created or alphabetical order. Pagination ensures that the notes are displayed in manageable
+                    their notes based on date updated. Pagination ensures that the notes are displayed in manageable
                     chunks, reducing clutter and making it easier for users to navigate through their notes. Furthermore, filtering options enable users to search for
                     specific notes based on various parameters, such as tags, categories, or keywords.
                 </p>

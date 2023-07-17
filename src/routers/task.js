@@ -21,6 +21,9 @@ router.get("/tasks", auth, async (req, res) => {
     const match = {}
     const sort = {}
 
+    if (req.query.search) {
+        match.description = { $regex: (req.query.search).toString(), $options: 'i' }
+    }
     if (req.query.completed) {
         match.completed = req.query.completed === "true"
     }
