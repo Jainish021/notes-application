@@ -128,7 +128,6 @@ router.delete("/users/me/avatar", auth, async (req, res) => {
 })
 
 router.get("/users/:id/avatar", async (req, res) => {
-    console.log("Here")
     try {
         const user = await User.findById(req.params.id)
 

@@ -5,7 +5,7 @@ import axios from "axios"
 export default function Header() {
     const navigate = useNavigate()
     const [userDetails, setUserDetails] = useState("")
-    const source = `data:image/jpeg;base64, ${userDetails.avatar}`
+    const [avatar, setAvatar] = useState("")
     const token = localStorage.getItem('token')
     axios.defaults.headers.common['Authorization'] = token
 
@@ -21,6 +21,18 @@ export default function Header() {
         token && fetchUserDetails()
         // eslint-disable-next-line
     }, [])
+
+    useEffect(() => {
+        const fetchUserAvatar = async () => {
+            try {
+                const userAvatar = await axios.get(`/users/${userDetails._id}/avatar`).then(res => res.data)
+                setAvatar(userAvatar)
+            } catch (e) {
+                setAvatar("")
+            }
+        }
+        userDetails && fetchUserAvatar()
+    }, [userDetails])
 
     // eslint-disable-next-line
     function RedirectToLogin() {
@@ -51,7 +63,7 @@ export default function Header() {
                 <span>Paper Pad</span>
             </h1>
             <div className="dropdown">
-                {(userDetails.avatar && <img className="profile--image" src={source} alt="Profile" />) || <img className="profile--image" src="user_icon.png" alt="Profile" />}
+                {(userDetails.avatar && <img className="profile--image" src={avatar} alt="Profile" />) || <img className="profile--image" src="user_icon.png" alt="Profile" />}
                 <div className="dropdown-content">
                     <p onClick={RedirectToProfile}>Profile</p>
                     <p onClick={RedirectToAbout}>About</p>

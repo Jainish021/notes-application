@@ -276,6 +276,10 @@ label {
     cursor: pointer;
 }
 
+input[type=radio] {
+    accent-color: rgb(88, 81, 38);
+}
+
 .filter--button:hover .filter--options {
     background-color: rgb(247, 246, 228);
     display: block;
