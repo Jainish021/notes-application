@@ -15,6 +15,7 @@ export default function Home() {
     const [notes, setNotes] = useState([])
     const [currentNoteId, setCurrentNoteId] = useState("")
     const [tempNoteText, setTempNoteText] = useState("")
+    const [tempSearchText, setTempSearchText] = useState("")
     const [currentPage, setCurrentPage] = useState(1)
     const [totalNotes, setTotalNotes] = useState(0)
     const [sortBy, setSortBy] = useState("desc")
@@ -65,6 +66,16 @@ export default function Home() {
         }
         // eslint-disable-next-line
     }, [tempNoteText])
+
+    useEffect(() => {
+        if (currentNoteId) {
+            const timeoutId = setTimeout(() => {
+                setSearchText(tempSearchText)
+            }, 500)
+            return () => clearTimeout(timeoutId)
+        }
+        // eslint-disable-next-line
+    }, [tempSearchText])
 
     async function createNewNote() {
         const newNote = {
@@ -147,7 +158,7 @@ export default function Home() {
                                 totalNotes={totalNotes}
                                 notesPerPage={notesPerPage}
                                 setSortBy={setSortBy}
-                                setSearchText={setSearchText}
+                                setTempSearchText={setTempSearchText}
                             />
                             <Editor
                                 tempNoteText={tempNoteText}

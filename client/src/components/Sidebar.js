@@ -41,10 +41,8 @@ export default function Sidebar(props) {
     return (
         <section className="pane sidebar">
             <div className="sidebar-header">
-                {/* <h3>All Notes</h3> */}
                 <div className="search-box">
-                    <input type="text" placeholder="Type and hit enter..." onKeyUp={(event) => event.key === "Enter" ? props.setSearchText(event.target.value) : ""} />
-                    {/* <button>Search</button> */}
+                    <input type="text" placeholder="Type and hit enter..." onChange={(event) => props.setTempSearchText(event.target.value)} />
                 </div>
                 <div className="filter-button">
                     <img src="filter-button.png" alt="filter" />
