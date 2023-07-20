@@ -45,13 +45,13 @@ export default function Registration() {
 
     return (
         <div>
-            <h1 className="lr--heading">Paper Pad</h1>
-            <form className="lr--form registration--form" onSubmit={RegistrationRequest}>
+            <h1 className="lr-heading">Paper Pad</h1>
+            <form className="lr-form registration-form" onSubmit={RegistrationRequest}>
                 <h4>Welcome to Paper Pad!</h4>
                 <h2>Register your account</h2>
                 <label>Username</label>
                 <input
-                    className="lr--text--input"
+                    className="lr-text-input"
                     name="name"
                     value={credentials.name}
                     type="text"
@@ -61,7 +61,7 @@ export default function Registration() {
                     onChange={HandleChange}></input>
                 <label>Email</label>
                 <input
-                    className="lr--text--input"
+                    className="lr-text-input"
                     name="email"
                     value={credentials.email}
                     type="email"
@@ -71,7 +71,7 @@ export default function Registration() {
                     onChange={HandleChange}></input>
                 <label>Password</label>
                 <input
-                    className="lr--text--input"
+                    className="lr-text-input"
                     name="password"
                     value={credentials.password}
                     type="password"
@@ -82,7 +82,7 @@ export default function Registration() {
                     onChange={HandleChange}></input>
                 <label>Age</label>
                 <input
-                    className="lr--text--input"
+                    className="lr-text-input"
                     name="age"
                     value={credentials.age}
                     type="number"
@@ -90,8 +90,8 @@ export default function Registration() {
                     placeholder="Enter age"
                     required
                     onChange={HandleChange}></input>
-                <label className="lr--error">{errorText}</label>
-                <input type="submit" className="lr--submit" value="Register"></input>
+                <label className="lr-error">{errorText}</label>
+                <input type="submit" className="lr-submit" value="Register"></input>
                 <hr></hr>
                 <button className="register" onClick={UserLogin}>Login</button>
             </form>

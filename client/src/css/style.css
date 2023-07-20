@@ -17,11 +17,11 @@ body {
     color: rgb(88, 81, 38);
 }
 
-.lr--heading {
+.lr-heading {
     font-size: 60px;
 }
 
-.lr--form {
+.lr-form {
     margin: auto;
     align-items: center;
     display: flex;
@@ -34,38 +34,38 @@ body {
     border-radius: 3%;
 }
 
-.login--form {
+.login-form {
     height: 35rem;
 }
 
-.registration--form {
+.registration-form {
     height: 45rem;
 }
 
-.lr--text--input {
+.lr-text-input {
     background-color: rgb(247, 246, 228);
 }
 
-.lr--form>h4 {
+.lr-form>h4 {
     margin-bottom: 0;
     color: gray;
 }
 
-.lr--form>h2 {
+.lr-form>h2 {
     margin-top: 2%;
 }
 
-.lr--form>label {
+.lr-form>label {
     align-self: flex-start;
     margin: 5px 35px;
     font-size: 17px;
 }
 
-.lr--error {
+.lr-error {
     color: red;
 }
 
-.lr--form>input {
+.lr-form>input {
     border: 1px solid lightgrey;
     border-radius: 5px;
     width: 85%;
@@ -75,11 +75,11 @@ body {
     font-size: 15px;
 }
 
-.lr--form>input::placeholder {
+.lr-form>input::placeholder {
     color: gray;
 }
 
-.lr--form>button {
+.lr-form>button {
     align-self: center;
     margin: 20px;
     width: 85%;
@@ -90,11 +90,11 @@ body {
     cursor: pointer;
 }
 
-.lr--form>button:active {
+.lr-form>button:active {
     box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
 }
 
-.lr--submit {
+.lr-submit {
     background-color: #0024DE;
     color: #FFFFFF;
 }
@@ -141,7 +141,7 @@ hr {
     display: inline-block;
 }
 
-.profile--image {
+.profile-image {
     height: 40px;
     width: 40px;
     border-radius: 100%;
@@ -206,7 +206,7 @@ button:focus {
     color: #e6d7b4;
 }
 
-.sidebar--header {
+.sidebar-header {
     height: 60px;
     display: flex;
     justify-content: space-around;
@@ -215,7 +215,7 @@ button:focus {
     color: #e6d7b4;
 }
 
-.sidebar--header>h3 {
+.sidebar-header>h3 {
     font-size: 1.75rem;
 }
 
@@ -235,7 +235,7 @@ button:focus {
     font-family: 'Lato', sans-serif;
 }
 
-.filter--button {
+.filter-button {
     width: 40px;
     height: 40px;
     position: relative;
@@ -247,13 +247,13 @@ button:focus {
     transition: background-color 0.3s ease;
 }
 
-.filter--button>img {
+.filter-button>img {
     width: 15px;
     justify-items: center;
     margin-top: 10px;
 }
 
-.filter--options {
+.filter-options {
     cursor: auto;
     display: none;
     margin-top: 10px;
@@ -267,11 +267,11 @@ button:focus {
     text-align: left;
 }
 
-.filter--options>fieldset {
+.filter-options>fieldset {
     margin-left: 10px;
 }
 
-.filter--options>fieldset>input,
+.filter-options>fieldset>input,
 label {
     cursor: pointer;
 }
@@ -280,7 +280,7 @@ input[type=radio] {
     accent-color: rgb(88, 81, 38);
 }
 
-.filter--button:hover .filter--options {
+.filter-button:hover .filter-options {
     background-color: rgb(247, 246, 228);
     display: block;
 }
@@ -313,14 +313,14 @@ input[type=radio] {
     align-items: center;
 }
 
-.title--delete {
+.title-delete {
     display: none;
     cursor: pointer;
     background-color: transparent;
     border: none;
 }
 
-.title:hover .title--delete {
+.title:hover .title-delete {
     display: block;
 }
 
@@ -365,7 +365,7 @@ input[type=radio] {
     box-sizing: border-box;
     position: relative;
     display: block;
-    transform: scale(var(--ggs, 1));
+    transform: scale(var(-ggs, 1));
     width: 10px;
     height: 12px;
     border: 2px solid transparent;
@@ -428,12 +428,12 @@ input[type=radio] {
     margin-inline: 70px;
 }
 
-.pagination--button {
+.pagination-button {
     color: rgb(88, 81, 38);
     background-color: #e6d7b4;
 }
 
-.pagination--input {
+.pagination-input {
     width: 40px;
     font-family: 'Lato', sans-serif;
 }
@@ -516,14 +516,162 @@ div.mde-tabs>button,
     border-radius: 3%;
 }
 
-.developer--portrait {
+.developer-portrait {
     width: 200px;
     box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.3);
 }
 
-.handle--icon {
+.handle-icon {
     margin: 20px;
     background-color: #FFFFFF;
     box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.3);
     width: 30px;
+}
+
+.profile-section {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
+    width: 50%;
+    font-size: 17px;
+    background-color: #e6d7b4;
+    box-shadow: 0 0 0 2px #e6d7b4,
+        0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+    border-radius: 3%;
+}
+
+.profile-section-user-image {
+    height: 150px;
+    width: 150px;
+    margin-left: auto;
+    border-radius: 100%;
+    align-self: center;
+    cursor: pointer;
+    border: solid 1px rgb(88, 81, 38);
+}
+
+.profile-section-buttons {
+    margin-left: 5%;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.profile-section>fieldset {
+    border: solid 1px rgb(88, 81, 38);
+    width: 90%;
+    height: fit-content;
+    text-align: left;
+    font-size: 20px;
+    display: flex;
+}
+
+.profile-user-info-label {
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    margin-left: 10%;
+}
+
+.profile-user-info {
+    margin-left: auto;
+    margin-right: 20%;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-user-info-label>label,
+.profile-user-info>label {
+    cursor: text;
+    margin-top: 10px;
+}
+
+.profile-account-settings>label {
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.button {
+    width: fit-content;
+    height: fit-content;
+    padding: 8px 10px;
+    margin: 10px;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    color: white;
+    border: none;
+}
+
+.delete-button {
+    background-color: #f44336;
+}
+
+.delete-button:active {
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+}
+
+.delete-button>i {
+    margin-right: 10px;
+}
+
+.upload-button {
+    background-color: #4CAF50;
+    position: relative;
+    overflow: hidden;
+}
+
+.upload-button input[type="file"] {
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0px;
+}
+
+.upload-button:active {
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+}
+
+.upload-icon {
+    width: 20px;
+}
+
+.logout-all-button {
+    background-color: lightgray;
+    color: rgb(88, 81, 38);
+    position: relative;
+    width: fit-content;
+    border: solid 1px black;
+    cursor: pointer;
+}
+
+.logout-all-button:active {
+    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+}
+
+.logout-all-icon {
+    width: 15px;
+    margin-left: 5px;
+}
+
+.delete-confirmation {
+    display: flex;
+    margin: 10px;
+}
+
+.delete-confirmation-message {
+    color: red;
+    margin: 0;
+}
+
+.delete-confirmation-button {
+    margin: 0;
+    margin-right: 20px;
 }

@@ -54,13 +54,13 @@ export default function Login() {
 
     return (
         <div>
-            <h1 className="lr--heading">Paper Pad</h1>
-            <form className="lr--form login--form" onSubmit={LoginRequest}>
+            <h1 className="lr-heading">Paper Pad</h1>
+            <form className="lr-form login-form" onSubmit={LoginRequest}>
                 <h4>Welcome back!</h4>
                 <h2>Login to your account</h2>
                 <label>Email</label>
                 <input
-                    className="lr--text--input"
+                    className="lr-text-input"
                     name="email"
                     value={credentials.email}
                     type="email"
@@ -70,15 +70,15 @@ export default function Login() {
                     onChange={handleChange} />
                 <label>Password</label>
                 <input
-                    className="lr--text--input"
+                    className="lr-text-input"
                     name="password"
                     value={credentials.password}
                     type="password"
                     placeholder="Enter password"
                     onChange={handleChange}
                     required />
-                <label className="lr--error">{errorText}</label>
-                <input type="submit" value="Login" className="lr--submit" />
+                <label className="lr-error">{errorText}</label>
+                <input type="submit" value="Login" className="lr-submit" />
                 <hr></hr>
                 <button className="register" onClick={UserRegistration}>New user? <b>Register Now</b></button>
             </form>

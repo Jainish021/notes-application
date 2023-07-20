@@ -5,7 +5,7 @@ export default function About() {
         <>
             <Header />
             <div className="about">
-                <p className="about--information">
+                <p className="about-information">
                     This notes taking application is designed to provide users with a platform to create an account and store their personal notes securely.
                     The application utilizes a combination of various technologies to achieve this functionality, including Node.js for the backend, React.js
                     for the frontend, Express.js for the server, and MongoDB for the database. The application is deployed on the Heroku platform, ensuring
@@ -33,11 +33,11 @@ export default function About() {
                     notes are securely stored and easily accessible whenever they need them.
                 </p>
                 <h3>Created by: Jainish Adesara</h3>
-                <img className="developer--portrait" src="portrait.jpg" alt="Developer" />
+                <img className="developer-portrait" src="portrait.jpg" alt="Developer" />
                 <div className="handles">
-                    <a href="https://www.linkedin.com/in/jainish-adesara" target="_blank" rel="noreferrer" ><img className="handle--icon" src="linkedin.png" alt="linkedin" /></a>
-                    <a href="https://github.com/Jainish021?tab=repositories" target="_blank" rel="noreferrer" ><img className="handle--icon" src="github.png" alt="github" /></a>
-                    <a href="mailto:adesarajainish@gmail.com" target="_blank" rel="noreferrer" ><img className="handle--icon" src="email.svg" alt="email" /></a>
+                    <a href="https://www.linkedin.com/in/jainish-adesara" target="_blank" rel="noreferrer" ><img className="handle-icon" src="linkedin.png" alt="linkedin" /></a>
+                    <a href="https://github.com/Jainish021?tab=repositories" target="_blank" rel="noreferrer" ><img className="handle-icon" src="github.png" alt="github" /></a>
+                    <a href="mailto:adesarajainish@gmail.com" target="_blank" rel="noreferrer" ><img className="handle-icon" src="email.svg" alt="email" /></a>
                 </div>
             </div>
         </>

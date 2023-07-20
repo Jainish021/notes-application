@@ -26,7 +26,7 @@ export default function Header() {
         const fetchUserAvatar = async () => {
             try {
                 const userAvatar = await axios.get(`/users/${userDetails._id}/avatar`).then(res => res.data)
-                setAvatar(userAvatar)
+                setAvatar(`data:image/png;base64, ${userAvatar}`)
             } catch (e) {
                 setAvatar("")
             }
@@ -63,7 +63,7 @@ export default function Header() {
                 <span>Paper Pad</span>
             </h1>
             <div className="dropdown">
-                {(userDetails.avatar && <img className="profile--image" src={avatar} alt="Profile" />) || <img className="profile--image" src="user_icon.png" alt="Profile" />}
+                {(avatar && <img className="profile-image" src={avatar} alt="Profile" />) || <img className="profile-image" src="user_icon.png" alt="Profile" />}
                 <div className="dropdown-content">
                     <p onClick={RedirectToProfile}>Profile</p>
                     <p onClick={RedirectToAbout}>About</p>

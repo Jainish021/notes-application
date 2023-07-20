@@ -26,13 +26,13 @@ export default function Sidebar(props) {
     function Pagination() {
         return (
             <div className="pagination">
-                <button className="pagination--button" onClick={() => (props.setCurrentPage(prevPage => prevPage - 1))} disabled={pageNum === 1} >
+                <button className="pagination-button" onClick={() => (props.setCurrentPage(prevPage => prevPage - 1))} disabled={pageNum === 1} >
                     {"<"}
                 </button>
                 <div>
-                    <input type="number" className="pagination--input" min="1" max={maxPages} value={pageNum} onChange={(event) => setPageNum(event.target.value)} onKeyUp={(event) => event.key === "Enter" && pageNum <= maxPages ? props.setCurrentPage(pageNum) : ""} /> / {maxPages}
+                    <input type="number" className="pagination-input" min="1" max={maxPages} value={pageNum} onChange={(event) => setPageNum(event.target.value)} onKeyUp={(event) => event.key === "Enter" && pageNum <= maxPages ? props.setCurrentPage(pageNum) : ""} /> / {maxPages}
                 </div>
-                <button className="pagination--button" onClick={() => (props.setCurrentPage(prevPage => prevPage + 1))} disabled={pageNum === maxPages}>
+                <button className="pagination-button" onClick={() => (props.setCurrentPage(prevPage => prevPage + 1))} disabled={pageNum === maxPages}>
                     {">"}
                 </button>
             </div>
@@ -40,15 +40,15 @@ export default function Sidebar(props) {
     }
     return (
         <section className="pane sidebar">
-            <div className="sidebar--header">
+            <div className="sidebar-header">
                 {/* <h3>All Notes</h3> */}
                 <div className="search-box">
                     <input type="text" placeholder="Type and hit enter..." onKeyUp={(event) => event.key === "Enter" ? props.setSearchText(event.target.value) : ""} />
                     {/* <button>Search</button> */}
                 </div>
-                <div className="filter--button">
+                <div className="filter-button">
                     <img src="filter-button.png" alt="filter" />
-                    <div className="filter--options">
+                    <div className="filter-options">
                         <fieldset>
                             <div id="line"></div>
                             <legend>Sort:</legend>
