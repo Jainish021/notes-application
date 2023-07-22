@@ -42,7 +42,7 @@ export default function Sidebar(props) {
         <section className="pane sidebar">
             <div className="sidebar-header">
                 <div className="search-box">
-                    <input type="text" placeholder="Type and hit enter..." onChange={(event) => props.setTempSearchText(event.target.value)} />
+                    <input type="text" placeholder="Search..." onChange={(event) => props.setTempSearchText(event.target.value)} />
                 </div>
                 <div className="filter-button">
                     <img src="filter-button.png" alt="filter" />

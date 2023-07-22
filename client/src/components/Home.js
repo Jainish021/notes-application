@@ -87,6 +87,7 @@ export default function Home() {
             setCurrentNoteId(resData._id)
             setNotes(prevNotes => [resData, ...prevNotes])
             setTotalNotes(prevTotal => prevTotal + 1)
+            setNotesStatus(true)
         } catch (e) {
             console.log("error")
         }

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 
-export default function Header() {
+export default function Header(props) {
     const navigate = useNavigate()
     const [userDetails, setUserDetails] = useState("")
     const [avatar, setAvatar] = useState("")
@@ -34,6 +34,10 @@ export default function Header() {
         userDetails && fetchUserAvatar()
     }, [userDetails])
 
+    useEffect(() => {
+        setAvatar(props.avatar)
+    }, [props.avatar])
+
     // eslint-disable-next-line
     function RedirectToLogin() {
         try {
@@ -59,6 +63,7 @@ export default function Header() {
 
     return (
         <header className="navbar">
+            <button className="menu-icon">&#9776;</button>
             <h1 onClick={RedirectToHome} id="title">
                 <span>Paper Pad</span>
             </h1>

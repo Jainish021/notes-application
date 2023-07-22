@@ -112,7 +112,7 @@ router.post("/users/me/avatar", auth, avatar.single('avatar'), async (req, res) 
 
     req.user.avatar = buffer
     await req.user.save()
-    res.send()
+    res.send({ avatar: req.user.avatar.toString('base64') })
 }, (error, req, res, next) => {
     res.status(400).send({ error: error.message })
 })
