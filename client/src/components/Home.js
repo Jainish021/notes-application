@@ -20,7 +20,11 @@ export default function Home() {
     const [totalNotes, setTotalNotes] = useState(0)
     const [sortBy, setSortBy] = useState("desc")
     const [searchText, setSearchText] = useState("")
+    const [searchBarFocus, setSearchBarFocus] = useState(false)
     const [notesStatus, setNotesStatus] = useState(false)
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth)
+    const [sidebarVisibility, setSidebarVisibility] = useState(false)
+    const [filterChecked, setFilterChecked] = useState(false)
     const notesPerPage = 13
 
     useEffect(() => {
@@ -49,6 +53,17 @@ export default function Home() {
         token && fetchData()
         // eslint-disable-next-line
     }, [navigate, currentPage, sortBy, searchText])
+
+
+    useEffect(() => {
+        function handleResize() {
+            setScreenWidth(window.innerWidth)
+        }
+
+        window.addEventListener('resize', handleResize)
+
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
 
     useEffect(() => {
         if (currentNoteId) {
@@ -137,46 +152,89 @@ export default function Home() {
         }) || notes[0]
     }
 
+    function HomePage() {
+        if (notesStatus) {
+            if (screenWidth > 1000) {
+                return (
+                    <Split
+                        sizes={[20, 80]}
+                        direction="horizontal"
+                        className="split">
+                        <Sidebar
+                            notes={notes}
+                            currentNote={findCurrentNote()}
+                            setCurrentNoteId={setCurrentNoteId}
+                            newNote={createNewNote}
+                            deleteNote={deleteNote}
+                            currentPage={currentPage}
+                            setCurrentPage={setCurrentPage}
+                            totalNotes={totalNotes}
+                            notesPerPage={notesPerPage}
+                            setSortBy={setSortBy}
+                            tempSearchText={tempSearchText}
+                            setTempSearchText={setTempSearchText}
+                            searchBarFocus={searchBarFocus}
+                            setSearchBarFocus={setSearchBarFocus}
+                            filterChecked={filterChecked}
+                            setFilterChecked={setFilterChecked}
+                        />
+                        <Editor
+                            tempNoteText={tempNoteText}
+                            setTempNoteText={setTempNoteText}
+                        />
+                    </Split>
+                )
+            } else {
+                if (sidebarVisibility) {
+                    return (
+                        <Sidebar
+                            notes={notes}
+                            currentNote={findCurrentNote()}
+                            setCurrentNoteId={setCurrentNoteId}
+                            newNote={createNewNote}
+                            deleteNote={deleteNote}
+                            currentPage={currentPage}
+                            setCurrentPage={setCurrentPage}
+                            totalNotes={totalNotes}
+                            notesPerPage={notesPerPage}
+                            setSortBy={setSortBy}
+                            tempSearchText={tempSearchText}
+                            setTempSearchText={setTempSearchText}
+                            searchBarFocus={searchBarFocus}
+                            setSearchBarFocus={setSearchBarFocus}
+                            setSidebarVisibility={setSidebarVisibility}
+                            filterChecked={filterChecked}
+                            setFilterChecked={setFilterChecked}
+                        />
+                    )
+                } else {
+                    return (
+                        <Editor
+                            tempNoteText={tempNoteText}
+                            setTempNoteText={setTempNoteText}
+                        />
+                    )
+                }
+            }
+        } else {
+            <div className="no-notes">
+                <h1>You have no notes</h1>
+                <button
+                    className="first-note"
+                    onClick={createNewNote}
+                >
+                    Create one now
+                </button>
+            </div>
+        }
+    }
+
     return (
         <>
-            <Header />
+            <Header
+                setSidebarVisibility={setSidebarVisibility} />
             <main>
-                {
-                    notesStatus
-                        ?
-                        <Split
-                            sizes={[20, 80]}
-                            direction="horizontal"
-                            className="split">
-                            <Sidebar
-                                notes={notes}
-                                currentNote={findCurrentNote()}
-                                setCurrentNoteId={setCurrentNoteId}
-                                newNote={createNewNote}
-                                deleteNote={deleteNote}
-                                currentPage={currentPage}
-                                setCurrentPage={setCurrentPage}
-                                totalNotes={totalNotes}
-                                notesPerPage={notesPerPage}
-                                setSortBy={setSortBy}
-                                setTempSearchText={setTempSearchText}
-                            />
-                            <Editor
-                                tempNoteText={tempNoteText}
-                                setTempNoteText={setTempNoteText}
-                            />
-                        </Split>
-                        :
-                        <div className="no-notes">
-                            <h1>You have no notes</h1>
-                            <button
-                                className="first-note"
-                                onClick={createNewNote}
-                            >
-                                Create one now
-                            </button>
-                        </div>
-                }
+                <HomePage />
             </main>
         </>
     )

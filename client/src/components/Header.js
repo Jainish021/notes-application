@@ -63,7 +63,7 @@ export default function Header(props) {
 
     return (
         <header className="navbar">
-            <button className="menu-icon">&#9776;</button>
+            <button className="menu-icon" onClick={() => props.setSidebarVisibility(prevValue => !prevValue)}>&#9776;</button>
             <h1 onClick={RedirectToHome} id="title">
                 <span>Paper Pad</span>
             </h1>

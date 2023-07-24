@@ -7,7 +7,6 @@ export default function Profile() {
     const navigate = useNavigate()
     const [userDetails, setUserDetails] = useState("")
     const [avatar, setAvatar] = useState("")
-    const [uploadBtnName, setUploadBtnName] = useState("Upload")
     const [deleteConfirmation, setDeleteConfirmation] = useState(false)
     const token = localStorage.getItem('token')
     axios.defaults.headers.common['Authorization'] = token
@@ -111,7 +110,7 @@ export default function Profile() {
                     <legend className="profile-user-info-label">Profile picture:</legend>
                     {(avatar && <img className="profile-section-user-image" src={avatar} alt="Profile" />) || <img className="profile-section-user-image" src="user_icon.png" alt="Profile" />}
                     <div className="profile-section-buttons">
-                        <label className="button upload-button"><img className="upload-icon" src="upload.png" alt="" />{uploadBtnName}<input type="file" name="file" accept=".png, .jpg, .jpeg" onChange={(event) => HandleFileUpload(event.target.files[0])} /></label>
+                        <label className="button upload-button"><img className="upload-icon" src="upload.png" alt="" />Upload<input type="file" name="file" accept=".png, .jpg, .jpeg" onChange={(event) => HandleFileUpload(event.target.files[0])} /></label>
                         {avatar && <label className="button delete-button" onClick={DeleteProfilePicture}><i className="gg-trash trash-icon"></i> Delete</label>}
                     </div>
                 </fieldset>
