@@ -56,33 +56,34 @@ export default function Editor(props) {
                         },
                         onKeyDown: (e) => {
                             const { selectionStart, selectionEnd } = e.target
-                            console.log(e.key)
-                            if (e.key.length == 1) {
-                                e.preventDefault()
-                                props.setSelectionStart(selectionStart + 1)
-                                props.setSelectionEnd(selectionEnd + 1)
-                                props.setTempNoteText(props.tempNoteText.substring(0, selectionStart) + e.key + props.tempNoteText.substring(selectionEnd))
-                            } else if (e.key == "Backspace") {
-                                e.preventDefault()
-                                props.setSelectionStart(selectionStart - 1)
-                                props.setSelectionEnd(selectionEnd - 1)
-                                props.setTempNoteText(props.tempNoteText.substring(0, selectionStart - 1) + props.tempNoteText.substring(selectionEnd))
-                            } else if (e.key == "Tab") {
-                                e.preventDefault()
-                                props.setSelectionStart(selectionStart + 5)
-                                props.setSelectionEnd(selectionEnd + 5)
-                                props.setTempNoteText(props.tempNoteText.substring(0, selectionStart) + "     " + props.tempNoteText.substring(selectionEnd))
-                            } else if (e.key == "Enter") {
-                                e.preventDefault()
-                                props.setSelectionStart(selectionStart + 1)
-                                props.setSelectionEnd(selectionEnd + 1)
-                                props.setTempNoteText(props.tempNoteText.substring(0, selectionStart) + "\n" + props.tempNoteText.substring(selectionEnd))
+                            if (!e.ctrlKey && !e.altKey && !e.shiftKey && !e.metaKey) {
+                                if (e.key.length == 1) {
+                                    e.preventDefault()
+                                    props.setSelectionStart(selectionStart + 1)
+                                    props.setSelectionEnd(selectionEnd + 1)
+                                    props.setTempNoteText(props.tempNoteText.substring(0, selectionStart) + e.key + props.tempNoteText.substring(selectionEnd))
+                                } else if (e.key == "Backspace") {
+                                    e.preventDefault()
+                                    props.setSelectionStart(selectionStart - 1)
+                                    props.setSelectionEnd(selectionEnd - 1)
+                                    props.setTempNoteText(props.tempNoteText.substring(0, selectionStart - 1) + props.tempNoteText.substring(selectionEnd))
+                                } else if (e.key == "Tab") {
+                                    e.preventDefault()
+                                    props.setSelectionStart(selectionStart + 5)
+                                    props.setSelectionEnd(selectionEnd + 5)
+                                    props.setTempNoteText(props.tempNoteText.substring(0, selectionStart) + "     " + props.tempNoteText.substring(selectionEnd))
+                                } else if (e.key == "Enter") {
+                                    e.preventDefault()
+                                    props.setSelectionStart(selectionStart + 1)
+                                    props.setSelectionEnd(selectionEnd + 1)
+                                    props.setTempNoteText(props.tempNoteText.substring(0, selectionStart) + "\n" + props.tempNoteText.substring(selectionEnd))
+                                }
                             }
                         }
                     }
                 }}
                 value={props.tempNoteText}
-                // onChange={props.setTempNoteText}
+                onChange={props.setTempNoteText}
                 selectedTab={selectedTab}
                 onTabChange={setSelectedTab}
                 generateMarkdownPreview={(markdown) =>

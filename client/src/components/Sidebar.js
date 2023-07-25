@@ -83,9 +83,9 @@ export default function Sidebar(props) {
                             props.setSearchBarFocus(true)
                             props.setTextAreaFocus(false)
                         }}
-                        onKeyUp={(e) => {
+                        onKeyDown={(e) => {
                             const { selectionStart, selectionEnd } = e.target
-                            if (!e.ctrlKey && String.fromCharCode(e.key).toLowerCase() === "a") {
+                            if (!e.ctrlKey && !e.altKey && !e.shiftKey && !e.metaKey) {
                                 if (e.key.length == 1) {
                                     e.preventDefault()
                                     props.setSearchSelectionStart(selectionStart + 1)
