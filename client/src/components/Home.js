@@ -21,6 +21,7 @@ export default function Home() {
     const [sortBy, setSortBy] = useState("desc")
     const [searchText, setSearchText] = useState("")
     const [searchBarFocus, setSearchBarFocus] = useState(false)
+    const [textAreaFocus, setTextAreaFocus] = useState(true)
     const [notesStatus, setNotesStatus] = useState(false)
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const [sidebarVisibility, setSidebarVisibility] = useState(false)
@@ -83,12 +84,10 @@ export default function Home() {
     }, [tempNoteText])
 
     useEffect(() => {
-        if (currentNoteId) {
-            const timeoutId = setTimeout(() => {
-                setSearchText(tempSearchText)
-            }, 500)
-            return () => clearTimeout(timeoutId)
-        }
+        const timeoutId = setTimeout(() => {
+            setSearchText(tempSearchText)
+        }, 500)
+        return () => clearTimeout(timeoutId)
         // eslint-disable-next-line
     }, [tempSearchText])
 
@@ -177,10 +176,14 @@ export default function Home() {
                             setSearchBarFocus={setSearchBarFocus}
                             filterChecked={filterChecked}
                             setFilterChecked={setFilterChecked}
+                            setTextAreaFocus={setTextAreaFocus}
                         />
                         <Editor
                             tempNoteText={tempNoteText}
                             setTempNoteText={setTempNoteText}
+                            textAreaFocus={textAreaFocus}
+                            setTextAreaFocus={setTextAreaFocus}
+                            setSearchBarFocus={setSearchBarFocus}
                         />
                     </Split>
                 )
@@ -205,6 +208,7 @@ export default function Home() {
                             setSidebarVisibility={setSidebarVisibility}
                             filterChecked={filterChecked}
                             setFilterChecked={setFilterChecked}
+                            setTextAreaFocus={setTextAreaFocus}
                         />
                     )
                 } else {
@@ -212,6 +216,9 @@ export default function Home() {
                         <Editor
                             tempNoteText={tempNoteText}
                             setTempNoteText={setTempNoteText}
+                            textAreaFocus={textAreaFocus}
+                            setTextAreaFocus={setTextAreaFocus}
+                            setSearchBarFocus={setSearchBarFocus}
                         />
                     )
                 }

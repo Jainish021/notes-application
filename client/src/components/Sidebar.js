@@ -68,7 +68,11 @@ export default function Sidebar(props) {
         <section className="pane sidebar">
             <div className="sidebar-header">
                 <div className="search-box">
-                    <input ref={inputRef} type="text" value={props.tempSearchText} placeholder="Search..." onChange={(event) => props.setTempSearchText(event.target.value)} onClick={() => { props.setSearchBarFocus(true) }} />
+                    <input ref={inputRef} type="text" value={props.tempSearchText} placeholder="Search..." onChange={(event) => props.setTempSearchText(event.target.value)} onClick={() => {
+                        props.setSearchBarFocus(true)
+                        props.setTextAreaFocus(false)
+                    }}
+                    />
                 </div>
                 <div className="filter-button">
                     <img src="filter-button.png" alt="filter" />
@@ -76,10 +80,10 @@ export default function Sidebar(props) {
                         <fieldset>
                             <div id="line"></div>
                             <legend>Sort:</legend>
-                            <input type="radio" name="Sort" id="asc" onClick={(event) => processFilter(event)} checked={props.filterChecked} />
+                            <input type="radio" name="Sort" id="asc" onClick={(event) => processFilter(event)} checked={props.filterChecked} onChange={() => ""} />
                             <label htmlFor="asc"> Oldest First</label>
                             <br />
-                            <input type="radio" name="Sort" id="desc" onClick={(event) => processFilter(event)} checked={!props.filterChecked} />
+                            <input type="radio" name="Sort" id="desc" onClick={(event) => processFilter(event)} checked={!props.filterChecked} onChange={() => ""} />
                             <label htmlFor="desc"> Newest First</label>
                         </fieldset>
                     </div>
