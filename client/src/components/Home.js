@@ -22,6 +22,10 @@ export default function Home() {
     const [searchText, setSearchText] = useState("")
     const [searchBarFocus, setSearchBarFocus] = useState(false)
     const [textAreaFocus, setTextAreaFocus] = useState(true)
+    const [selectionStart, setSelectionStart] = useState("")
+    const [selectionEnd, setSelectionEnd] = useState("")
+    const [searchSelectionStart, setSearchSelectionStart] = useState("")
+    const [searchSelectionEnd, setSearchSelectionEnd] = useState("")
     const [notesStatus, setNotesStatus] = useState(false)
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const [sidebarVisibility, setSidebarVisibility] = useState(false)
@@ -177,6 +181,10 @@ export default function Home() {
                             filterChecked={filterChecked}
                             setFilterChecked={setFilterChecked}
                             setTextAreaFocus={setTextAreaFocus}
+                            searchSelectionStart={searchSelectionStart}
+                            setSearchSelectionStart={setSearchSelectionStart}
+                            searchSelectionEnd={searchSelectionEnd}
+                            setSearchSelectionEnd={setSearchSelectionEnd}
                         />
                         <Editor
                             tempNoteText={tempNoteText}
@@ -184,6 +192,10 @@ export default function Home() {
                             textAreaFocus={textAreaFocus}
                             setTextAreaFocus={setTextAreaFocus}
                             setSearchBarFocus={setSearchBarFocus}
+                            selectionStart={selectionStart}
+                            setSelectionStart={setSelectionStart}
+                            selectionEnd={selectionEnd}
+                            setSelectionEnd={setSelectionEnd}
                         />
                     </Split>
                 )
@@ -209,6 +221,10 @@ export default function Home() {
                             filterChecked={filterChecked}
                             setFilterChecked={setFilterChecked}
                             setTextAreaFocus={setTextAreaFocus}
+                            searchSelectionStart={searchSelectionStart}
+                            setSearchSelectionStart={setSearchSelectionStart}
+                            searchSelectionEnd={searchSelectionEnd}
+                            setSearchSelectionEnd={setSearchSelectionEnd}
                         />
                     )
                 } else {
@@ -219,6 +235,8 @@ export default function Home() {
                             textAreaFocus={textAreaFocus}
                             setTextAreaFocus={setTextAreaFocus}
                             setSearchBarFocus={setSearchBarFocus}
+                            selectionEnd={selectionEnd}
+                            setSelectionEnd={setSelectionEnd}
                         />
                     )
                 }

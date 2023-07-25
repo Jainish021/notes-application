@@ -9,12 +9,22 @@ export default function Sidebar(props) {
         setPageNum(props.currentPage)
     }, [props.currentPage])
 
+
     useEffect(() => {
         if (props.tempSearchText || props.searchBarFocus) {
             inputRef.current.focus()
+            inputRef.current.selectionStart = props.searchSelectionStart
+            inputRef.current.selectionEnd = props.searchSelectionEnd
         }
         // eslint-disable-next-line
     }, [props.tempSearchText])
+
+    // useEffect(() => {
+    //     if (props.tempSearchText || props.searchBarFocus) {
+    //         inputRef.current.focus()
+    //     }
+    //     // eslint-disable-next-line
+    // }, [props.tempSearchText])
 
     function processNoteSelection(id) {
         props.setCurrentNoteId(id)
@@ -63,15 +73,40 @@ export default function Sidebar(props) {
             props.setFilterChecked(false)
         }
     }
-
+    // onChange={(event) => props.setTempSearchText(event.target.value)} 
     return (
         <section className="pane sidebar">
             <div className="sidebar-header">
                 <div className="search-box">
-                    <input ref={inputRef} type="text" value={props.tempSearchText} placeholder="Search..." onChange={(event) => props.setTempSearchText(event.target.value)} onClick={() => {
-                        props.setSearchBarFocus(true)
-                        props.setTextAreaFocus(false)
-                    }}
+                    <input ref={inputRef} type="text" value={props.tempSearchText} placeholder="Search..." onChange={() => ""}
+                        onClick={() => {
+                            props.setSearchBarFocus(true)
+                            props.setTextAreaFocus(false)
+                        }}
+                        onKeyUp={(e) => {
+                            const { selectionStart, selectionEnd } = e.target
+                            if (!e.ctrlKey && String.fromCharCode(e.key).toLowerCase() === "a") {
+                                if (e.key.length == 1) {
+                                    e.preventDefault()
+                                    props.setSearchSelectionStart(selectionStart + 1)
+                                    props.setSearchSelectionEnd(selectionEnd + 1)
+                                    props.setTempSearchText(props.tempSearchText.substring(0, selectionStart) + e.key + props.tempSearchText.substring(selectionEnd))
+                                } else if (e.key == "Backspace") {
+                                    e.preventDefault()
+                                    props.setSearchSelectionStart(selectionStart - 1)
+                                    props.setSearchSelectionEnd(selectionEnd - 1)
+                                    props.setTempSearchText(props.tempSearchText.substring(0, selectionStart - 1) + props.tempSearchText.substring(selectionEnd))
+                                } else if (e.key == "Tab") {
+                                    e.preventDefault()
+                                    props.setSearchSelectionStart(selectionStart + 5)
+                                    props.setSearchSelectionEnd(selectionEnd + 5)
+                                    props.setTempSearchText(props.tempSearchText.substring(0, selectionStart) + "     " + props.tempSearchText.substring(selectionEnd))
+                                } else if (e.key == "Enter") {
+                                    e.preventDefault()
+                                    props.setTempSearchText(props.tempSearchText.substring(0, selectionStart) + props.tempSearchText.substring(selectionEnd))
+                                }
+                            }
+                        }}
                     />
                 </div>
                 <div className="filter-button">
