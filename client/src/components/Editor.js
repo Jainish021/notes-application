@@ -25,19 +25,6 @@ export default function Editor(props) {
         // eslint-disable-next-line
     }, [props.tempNoteText])
 
-    // useEffect(() => {
-    //     if (props.textAreaFocus) {
-    //         inputRef.current.focus()
-    //         inputRef.current.selectionStart = props.selectionStart
-    //         inputRef.current.selectionEnd = props.selectionEnd
-    //         // inputRef.current.selectionStart = inputRef.current.selectionEnd = selectionStart + 2
-    //         // var temp_value = inputRef.current.value
-    //         // inputRef.current.value = ''
-    //         // inputRef.current.value = temp_value
-    //     }
-    //     // eslint-disable-next-line
-    // }, [props.tempNoteText])
-
     const converter = new Showdown.Converter({
         tables: true,
         simplifiedAutoLink: true,
@@ -57,22 +44,22 @@ export default function Editor(props) {
                         onKeyDown: (e) => {
                             const { selectionStart, selectionEnd } = e.target
                             if (!e.ctrlKey && !e.altKey && !e.shiftKey && !e.metaKey) {
-                                if (e.key.length == 1) {
+                                if (e.key.length === 1) {
                                     e.preventDefault()
                                     props.setSelectionStart(selectionStart + 1)
                                     props.setSelectionEnd(selectionEnd + 1)
                                     props.setTempNoteText(props.tempNoteText.substring(0, selectionStart) + e.key + props.tempNoteText.substring(selectionEnd))
-                                } else if (e.key == "Backspace") {
+                                } else if (e.key === "Backspace") {
                                     e.preventDefault()
                                     props.setSelectionStart(selectionStart - 1)
                                     props.setSelectionEnd(selectionEnd - 1)
                                     props.setTempNoteText(props.tempNoteText.substring(0, selectionStart - 1) + props.tempNoteText.substring(selectionEnd))
-                                } else if (e.key == "Tab") {
+                                } else if (e.key === "Tab") {
                                     e.preventDefault()
                                     props.setSelectionStart(selectionStart + 5)
                                     props.setSelectionEnd(selectionEnd + 5)
                                     props.setTempNoteText(props.tempNoteText.substring(0, selectionStart) + "     " + props.tempNoteText.substring(selectionEnd))
-                                } else if (e.key == "Enter") {
+                                } else if (e.key === "Enter") {
                                     e.preventDefault()
                                     props.setSelectionStart(selectionStart + 1)
                                     props.setSelectionEnd(selectionEnd + 1)

@@ -81,7 +81,7 @@ export default function Home() {
         if (currentNoteId) {
             const timeoutId = setTimeout(() => {
                 updateNote(tempNoteText)
-            }, 500)
+            }, 1000)
             return () => clearTimeout(timeoutId)
         }
         // eslint-disable-next-line

@@ -19,13 +19,6 @@ export default function Sidebar(props) {
         // eslint-disable-next-line
     }, [props.tempSearchText])
 
-    // useEffect(() => {
-    //     if (props.tempSearchText || props.searchBarFocus) {
-    //         inputRef.current.focus()
-    //     }
-    //     // eslint-disable-next-line
-    // }, [props.tempSearchText])
-
     function processNoteSelection(id) {
         props.setCurrentNoteId(id)
         if (props.setSidebarVisibility) {
@@ -86,22 +79,22 @@ export default function Sidebar(props) {
                         onKeyDown={(e) => {
                             const { selectionStart, selectionEnd } = e.target
                             if (!e.ctrlKey && !e.altKey && !e.shiftKey && !e.metaKey) {
-                                if (e.key.length == 1) {
+                                if (e.key.length === 1) {
                                     e.preventDefault()
                                     props.setSearchSelectionStart(selectionStart + 1)
                                     props.setSearchSelectionEnd(selectionEnd + 1)
                                     props.setTempSearchText(props.tempSearchText.substring(0, selectionStart) + e.key + props.tempSearchText.substring(selectionEnd))
-                                } else if (e.key == "Backspace") {
+                                } else if (e.key === "Backspace") {
                                     e.preventDefault()
                                     props.setSearchSelectionStart(selectionStart - 1)
                                     props.setSearchSelectionEnd(selectionEnd - 1)
                                     props.setTempSearchText(props.tempSearchText.substring(0, selectionStart - 1) + props.tempSearchText.substring(selectionEnd))
-                                } else if (e.key == "Tab") {
+                                } else if (e.key === "Tab") {
                                     e.preventDefault()
                                     props.setSearchSelectionStart(selectionStart + 5)
                                     props.setSearchSelectionEnd(selectionEnd + 5)
                                     props.setTempSearchText(props.tempSearchText.substring(0, selectionStart) + "     " + props.tempSearchText.substring(selectionEnd))
-                                } else if (e.key == "Enter") {
+                                } else if (e.key === "Enter") {
                                     e.preventDefault()
                                     props.setTempSearchText(props.tempSearchText.substring(0, selectionStart) + props.tempSearchText.substring(selectionEnd))
                                 }
