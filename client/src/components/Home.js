@@ -33,7 +33,6 @@ export default function Home() {
     const [editorState, setEditorState] = useState("")
     const notesPerPage = 13
 
-    console.log("Render")
 
     useEffect(() => {
         function RedirectToLogin() {
@@ -56,7 +55,6 @@ export default function Home() {
                     setEditorState(EditorState.moveFocusToEnd(EditorState.createWithContent(ContentState.createFromBlockArray(htmlToDraft(tasksData.tasks[0]?.description)))))
                 }
             } catch (e) {
-                console.log("here")
                 RedirectToLogin()
             }
         }
@@ -117,7 +115,7 @@ export default function Home() {
                 setNotesStatus(true)
             }
         } catch (e) {
-            console.log("error")
+            // console.log("error")
         }
     }
 

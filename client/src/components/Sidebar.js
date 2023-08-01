@@ -5,7 +5,6 @@ export default function Sidebar(props) {
     const [pageNum, setPageNum] = useState(1)
     const maxPages = Math.ceil(props.totalNotes / props.notesPerPage)
     const inputRef = useRef(null)
-    console.log("Search", props.searchBarFocus)
 
     useEffect(() => {
         setPageNum(props.currentPage)
@@ -52,13 +51,13 @@ export default function Sidebar(props) {
     function Pagination() {
         return (
             <div className="pagination">
-                <button className="pagination-button" onClick={() => (props.setCurrentPage(prevPage => prevPage - 1))} disabled={pageNum === 1} >
+                <button className="pagination-button" onMouseUp={() => (props.setCurrentPage(prevPage => prevPage - 1))} disabled={pageNum === 1} >
                     {"<"}
                 </button>
                 <div>
                     <input type="number" className="pagination-input" min="1" max={maxPages} value={pageNum} onChange={(event) => setPageNum(event.target.value)} onKeyUp={(event) => event.key === "Enter" && pageNum <= maxPages ? props.setCurrentPage(pageNum) : ""} /> / {maxPages}
                 </div>
-                <button className="pagination-button" onClick={() => (props.setCurrentPage(prevPage => prevPage + 1))} disabled={pageNum === maxPages}>
+                <button className="pagination-button" onMouseUp={() => (props.setCurrentPage(prevPage => prevPage + 1))} disabled={pageNum === maxPages}>
                     {">"}
                 </button>
             </div>
@@ -78,7 +77,6 @@ export default function Sidebar(props) {
 
 
     function processSearchBarSelection() {
-        console.log("Here")
         props.setTextAreaFocus(false)
         props.setSearchBarFocus(true)
     }
