@@ -360,55 +360,25 @@ input[type=radio] {
     align-items: center;
 }
 
-.mde-header {
-    background: rgb(88, 81, 38);
-}
-
-textarea.mde-text,
-div.mde-preview {
-    background-color: rgb(247, 246, 228);
-    background-image:
-        repeating-linear-gradient(0deg,
-            transparent,
-            transparent 29px,
-            rgba(0, 0, 0, 0.1) 29px,
-            rgba(0, 0, 0, 0.1) 30px);
-    background-size: 100% 30px;
-    font-size: 19px;
-    font-family: 'Lato', sans-serif;
-    line-height: 30px;
-}
-
-div.mde-preview {
-    min-height: 81.5vh !important;
-}
-
-div.mde-preview-content {
-    padding: 5px;
-}
-
-div.mde-preview>*,
-div.mde-preview>div>p:nth-child(n)>code,
-div.mde-preview>div>ol>li>p:nth-child(n)>code,
-div.mde-preview>div>ul,
-div.mde-preview>div>ul>li>p:nth-child(n) {
-    font-size: 19px;
-    color: #000000;
-    text-align: left;
-    font-family: 'Lato', sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-div.mde-header {
+div.editor-toolbar {
     background-color: rgb(88, 81, 38);
     border-bottom: none;
-    color: #e6d7b4;
 }
 
-div.mde-tabs>button,
-.mde-header .svg-icon {
-    color: #e6d7b4;
+div.rdw-option-wrapper,
+div.rdw-block-wrapper>*,
+div.rdw-fontsize-dropdown,
+div.rdw-fontfamily-dropdown {
+    background-color: #e6d7b4;
+    border: none
+}
+
+.editor {
+    height: 100%;
+}
+
+div.rdw-editor-wrapper {
+    border: 1px solid black;
 }
 
 .developer-portrait {
@@ -529,6 +499,11 @@ div.mde-tabs>button,
     margin-right: 20px;
 }
 
+div.public-DraftStyleDefault-block {
+    margin: 0
+}
+
+
 /* Specific styles for large screens */
 @media (min-width: 1001px) {
     .lr-heading {
@@ -622,8 +597,23 @@ div.mde-tabs>button,
         height: calc(100vh - 105px);
     }
 
-    .editor {
-        height: calc(100vh - 105px);
+    div.rdw-editor-main {
+        height: calc(100vh - 155px);
+        background-color: rgb(247, 246, 228);
+        background-image:
+            repeating-linear-gradient(0deg,
+                transparent,
+                transparent 29px,
+                rgba(0, 0, 0, 0.1) 29px,
+                rgba(0, 0, 0, 0.1) 30px);
+        background-size: 100% 30px;
+        font-family: 'Lato', sans-serif;
+        line-height: 30px;
+        width: 100%;
+    }
+
+    div.DraftEditor-root {
+        height: calc(100vh - 175px);
     }
 
     .about {
@@ -783,10 +773,6 @@ div.mde-tabs>button,
         align-items: center;
     }
 
-    .mde-header {
-        background: rgb(88, 81, 38);
-    }
-
     .sidebar {
         background-color: rgb(88, 81, 38);
         color: #e6d7b4;
@@ -794,8 +780,23 @@ div.mde-tabs>button,
         height: calc(100vh - 51px);
     }
 
-    .editor {
-        height: calc(100vh - 51px);
+    div.rdw-editor-main {
+        height: calc(100vh - 190px);
+        background-color: rgb(247, 246, 228);
+        background-image:
+            repeating-linear-gradient(0deg,
+                transparent,
+                transparent 29px,
+                rgba(0, 0, 0, 0.1) 29px,
+                rgba(0, 0, 0, 0.1) 30px);
+        background-size: 100% 30px;
+        font-family: 'Lato', sans-serif;
+        line-height: 30px;
+        width: 100%;
+    }
+
+    div.DraftEditor-root {
+        height: calc(100vh - 190px);
     }
 
     .about {

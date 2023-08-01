@@ -5,7 +5,8 @@ const User = require("./user")
 const taskSchema = mongoose.Schema({
     description: {
         type: String,
-        required: true,
+        //Because it does not allow empty notes
+        // required: true,
         trim: true
     },
     completed: {

@@ -1,9 +1,11 @@
 import { useEffect, useState, useRef } from "react"
+import { convert } from "html-to-text"
 
 export default function Sidebar(props) {
     const [pageNum, setPageNum] = useState(1)
     const maxPages = Math.ceil(props.totalNotes / props.notesPerPage)
     const inputRef = useRef(null)
+    console.log("Search", props.searchBarFocus)
 
     useEffect(() => {
         setPageNum(props.currentPage)
@@ -17,29 +19,35 @@ export default function Sidebar(props) {
             inputRef.current.selectionEnd = props.searchSelectionEnd
         }
         // eslint-disable-next-line
-    }, [props.tempSearchText])
+    }, [props.tempSearchText, props.searchBarFocus])
+
 
     function processNoteSelection(id) {
         props.setCurrentNoteId(id)
         if (props.setSidebarVisibility) {
             props.setSidebarVisibility(false)
         }
+        props.setTextAreaFocus(true)
+        props.setSearchBarFocus(false)
     }
+
 
     const noteElements = props.notes.map((note, index) => (
         <div key={note._id}>
             <div
                 className={`title ${note._id === props.currentNote._id ? "selected-note" : ""}`}
-                onClick={() => { processNoteSelection(note._id) }}>
-                <h4 className="text-snippet">{note.description.split("\n")[0]}</h4>
+                onMouseUp={() => processNoteSelection(note._id)}
+            >
+                <h4 className="text-snippet">{convert(note.description).split("\n")[0]}</h4>
                 <button
                     className="delete-btn"
-                    onClick={(event) => props.deleteNote(event, note._id)}>
+                    onMouseUp={(event) => props.deleteNote(event, note._id)}>
                     <i className="gg-trash trash-icon"></i>
                 </button>
             </div>
         </div>
     ))
+
 
     function Pagination() {
         return (
@@ -57,6 +65,7 @@ export default function Sidebar(props) {
         )
     }
 
+
     function processFilter(event) {
         if (event.target.id === "asc") {
             props.setSortBy("asc")
@@ -66,16 +75,26 @@ export default function Sidebar(props) {
             props.setFilterChecked(false)
         }
     }
-    // onChange={(event) => props.setTempSearchText(event.target.value)} 
+
+
+    function processSearchBarSelection() {
+        console.log("Here")
+        props.setTextAreaFocus(false)
+        props.setSearchBarFocus(true)
+    }
+
+
     return (
         <section className="pane sidebar">
             <div className="sidebar-header">
                 <div className="search-box">
-                    <input ref={inputRef} type="text" value={props.tempSearchText} placeholder="Search..." onChange={() => ""}
-                        onClick={() => {
-                            props.setSearchBarFocus(true)
-                            props.setTextAreaFocus(false)
-                        }}
+                    <input
+                        ref={inputRef}
+                        type="text"
+                        value={props.tempSearchText}
+                        placeholder="Search..."
+                        onChange={() => ""}
+                        onClick={processSearchBarSelection}
                         onKeyDown={(e) => {
                             const { selectionStart, selectionEnd } = e.target
                             if (!e.ctrlKey && !e.altKey && !e.shiftKey && !e.metaKey) {
@@ -97,6 +116,10 @@ export default function Sidebar(props) {
                                 } else if (e.key === "Enter") {
                                     e.preventDefault()
                                     props.setTempSearchText(props.tempSearchText.substring(0, selectionStart) + props.tempSearchText.substring(selectionEnd))
+                                } else if (e.key === "Delete") {
+                                    props.setSearchSelectionStart(selectionStart)
+                                    props.setSearchSelectionEnd(selectionEnd)
+                                    props.setTempSearchText(props.tempSearchText.substring(0, selectionStart) + props.tempSearchText.substring(selectionEnd + 1))
                                 }
                             }
                         }}
@@ -116,7 +139,7 @@ export default function Sidebar(props) {
                         </fieldset>
                     </div>
                 </div>
-                <button className="new-note" onClick={props.newNote}>+</button>
+                <button className="new-note" onMouseUp={props.newNote}>+</button>
                 {props.setSidebarVisibility && <button className="cancel-button" onClick={() => props.setSidebarVisibility(false)}>&#10539;</button>}
             </div>
             {noteElements.slice(0, props.notesPerPage)}

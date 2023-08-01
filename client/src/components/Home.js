@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import Split from "react-split"
+import { EditorState, ContentState } from "draft-js"
+import htmlToDraft from "html-to-draftjs"
 import Sidebar from "../components/Sidebar"
-import Editor from "../components/Editor"
+import NotesEditor from "../components/NotesEditor"
 import Header from "../components/Header"
 import "../css/style.css"
 import axios from "axios"
@@ -22,15 +24,16 @@ export default function Home() {
     const [searchText, setSearchText] = useState("")
     const [searchBarFocus, setSearchBarFocus] = useState(false)
     const [textAreaFocus, setTextAreaFocus] = useState(true)
-    const [selectionStart, setSelectionStart] = useState("")
-    const [selectionEnd, setSelectionEnd] = useState("")
     const [searchSelectionStart, setSearchSelectionStart] = useState("")
     const [searchSelectionEnd, setSearchSelectionEnd] = useState("")
     const [notesStatus, setNotesStatus] = useState(false)
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const [sidebarVisibility, setSidebarVisibility] = useState(false)
     const [filterChecked, setFilterChecked] = useState(false)
+    const [editorState, setEditorState] = useState("")
     const notesPerPage = 13
+
+    console.log("Render")
 
     useEffect(() => {
         function RedirectToLogin() {
@@ -46,12 +49,14 @@ export default function Home() {
             try {
                 const tasksData = await axios.get(`/tasks?sortBy=updatedAt:${sortBy}&limit=${notesPerPage}&skip=${(currentPage - 1) * notesPerPage}&search=${searchText}`).then(res => res.data)
                 setNotes(tasksData.tasks)
-                setCurrentNoteId(tasksData.tasks[0]?._id)
                 setTotalNotes(tasksData.totalTasks)
                 if (tasksData.totalTasks > 0) {
                     setNotesStatus(true)
+                    setCurrentNoteId(tasksData.tasks[0]?._id)
+                    setEditorState(EditorState.moveFocusToEnd(EditorState.createWithContent(ContentState.createFromBlockArray(htmlToDraft(tasksData.tasks[0]?.description)))))
                 }
             } catch (e) {
+                console.log("here")
                 RedirectToLogin()
             }
         }
@@ -72,10 +77,12 @@ export default function Home() {
 
     useEffect(() => {
         if (currentNoteId) {
-            setTempNoteText(findCurrentNote().description)
+            // setTempNoteText(findCurrentNote().description)
+            setEditorState(EditorState.moveFocusToEnd(EditorState.createWithContent(ContentState.createFromBlockArray(htmlToDraft(findCurrentNote().description)))))
         }
         // eslint-disable-next-line
     }, [currentNoteId])
+
 
     useEffect(() => {
         if (currentNoteId) {
@@ -97,7 +104,8 @@ export default function Home() {
 
     async function createNewNote() {
         const newNote = {
-            description: "# Type your note title here. Followed by the note.",
+
+            description: "<h1>Type your note title here. Followed by the note.</h1>",
             completed: false
         }
         try {
@@ -105,7 +113,9 @@ export default function Home() {
             setCurrentNoteId(resData._id)
             setNotes(prevNotes => [resData, ...prevNotes])
             setTotalNotes(prevTotal => prevTotal + 1)
-            setNotesStatus(true)
+            if (!notesStatus) {
+                setNotesStatus(true)
+            }
         } catch (e) {
             console.log("error")
         }
@@ -186,16 +196,13 @@ export default function Home() {
                             searchSelectionEnd={searchSelectionEnd}
                             setSearchSelectionEnd={setSearchSelectionEnd}
                         />
-                        <Editor
-                            tempNoteText={tempNoteText}
+                        <NotesEditor
                             setTempNoteText={setTempNoteText}
                             textAreaFocus={textAreaFocus}
                             setTextAreaFocus={setTextAreaFocus}
                             setSearchBarFocus={setSearchBarFocus}
-                            selectionStart={selectionStart}
-                            setSelectionStart={setSelectionStart}
-                            selectionEnd={selectionEnd}
-                            setSelectionEnd={setSelectionEnd}
+                            editorState={editorState}
+                            setEditorState={setEditorState}
                         />
                     </Split>
                 )
@@ -229,28 +236,29 @@ export default function Home() {
                     )
                 } else {
                     return (
-                        <Editor
-                            tempNoteText={tempNoteText}
+                        <NotesEditor
                             setTempNoteText={setTempNoteText}
                             textAreaFocus={textAreaFocus}
                             setTextAreaFocus={setTextAreaFocus}
                             setSearchBarFocus={setSearchBarFocus}
-                            selectionEnd={selectionEnd}
-                            setSelectionEnd={setSelectionEnd}
+                            editorState={editorState}
+                            setEditorState={setEditorState}
                         />
                     )
                 }
             }
         } else {
-            <div className="no-notes">
-                <h1>You have no notes</h1>
-                <button
-                    className="first-note"
-                    onClick={createNewNote}
-                >
-                    Create one now
-                </button>
-            </div>
+            return (
+                <div className="no-notes">
+                    <h1>You have no notes</h1>
+                    <button
+                        className="first-note"
+                        onClick={createNewNote}
+                    >
+                        Create one now
+                    </button>
+                </div>
+            )
         }
     }
 
