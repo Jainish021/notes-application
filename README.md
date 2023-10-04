@@ -1,4 +1,4 @@
-# Notes
+# Paper Pad
 > Link to the application: https://jainish-notes-app-6e5057dffd43.herokuapp.com/<br>
 
 ![Screenshot of login page](https://github.com/Jainish021/images/blob/main/notes-app-login.png)
